@@ -13,7 +13,7 @@ def joinsuccess(request):
 
 
 def join(request):
-    name = request.POST["name"]
+    name = request.POST["name"] # name값들 가져옴
     email = request.POST["email"]
     password = request.POST["password"]
     gender = request.POST["gender"]
