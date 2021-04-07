@@ -1,0 +1,45 @@
+<!--완료-->
+{% extends '../base.html %}
+
+{% block css_link %}
+<link href="/assets/css/user.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+			{% if request.GET.result == 'success' %}
+			<script>
+				alert('성공적으로 정보를 수정하였습니다.')
+			</script>
+			{% endif %}
+
+			<div id="user">
+				<form id="join-form" name="joinForm" method="post" action="/user/update">
+					{% csrf_token %}
+					<label class="block-label" for="name">이름</label>
+					<input id="name" name="name" type="text" value={{ request.session.authuser.name }}>
+
+					<label class="block-label">이메일
+						<h4>{{ request.session.authuser.email }}</h4> </label>
+
+
+					<label class="block-label">패스워드</label>
+					<input name="password" type="password" value="">
+
+					<fieldset>
+						<legend>성별</legend>
+						<label>남</label> <input type="radio" name="gender" value="male" checked="checked">
+						<label>여</label> <input type="radio" name="gender" value="female">
+					</fieldset>
+
+					{% if request.GET.result == 'fail' %}
+					<p>
+						비밀번호 수정을 실패하였습니다. 다시 입력해주세요.
+					</p>
+					{% endif %}
+
+					<input type="submit" value="수정하기">
+
+				</form>
+			</div>
+{% endblock %}
