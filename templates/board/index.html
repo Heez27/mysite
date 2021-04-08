@@ -24,7 +24,7 @@
 					{% for board in boardlist %}
 					<tr>
 						<td>{{ boardlist  | length | sub:forloop.counter | add:1 }}</td>
-						<td><a href="" style="text-align:left; padding-left:0px">{{ board.title }}</a></td>
+						<td><a href="/board/view?no={{ board.no }}" style="text-align:left; padding-left:0px">{{ board.title }}</a></td>
 						<td>{{ board.name }}</td>
 						<td> {{ board.hit }} </td>
 						<td> {{ board.reg_date }} </td>

@@ -43,5 +43,6 @@ urlpatterns = [
     path('board/writeform', boardviews.writeform),
     path('board/write', boardviews.write),
     path('board/updateform', boardviews.updateform),
+    path('board/update', boardviews.update),
 
 ]

@@ -35,11 +35,12 @@ def index(request):
 
 
 
-def view(request):
-    no = 1
+def view(request): # 글 보기
+    no = request.GET['no']
     result = models.findbyno(no)
     data = {'board': result}
     return render(request, 'board/view.html', data)
+
 
 def writeform(request):
     # Access Control(접근 제어)
@@ -64,5 +65,16 @@ def write(request):
 
 
 
-def updateform(request):
-    return render(request, 'board/updateform.html')
+def updateform(request): #글 수정 페이지로 가기
+    no = request.GET['no']
+    result = models.findbyno(no)
+    data = {'board': result}
+    return render(request, 'board/updateform.html', data)
+
+def update(request): # 글수정 페이지에서 수정버튼 누른 경우(template/board/updateform.html 에서 action 부분)
+    # no = request.GET['no']
+    # title = request.POST['title']
+    # content = request.POST['content']
+    # models.write(no, title, content)
+    # return HttpResponseRedirect('/board/view')
+    pass
