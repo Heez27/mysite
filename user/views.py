@@ -4,7 +4,7 @@ from django.shortcuts import render
 from user import models
 
 
-def joinform(request): # 회원가입
+def joinform(request):
     return render(request, 'user/joinform.html')
 
 
@@ -13,7 +13,7 @@ def joinsuccess(request):
 
 
 def join(request):
-    name = request.POST["name"] # name값들 가져옴
+    name = request.POST["name"]
     email = request.POST["email"]
     password = request.POST["password"]
     gender = request.POST["gender"]
@@ -23,15 +23,12 @@ def join(request):
     return HttpResponseRedirect('/user/joinsuccess')
 
 
-
-
-
 def loginform(request):
     return render(request, 'user/loginform.html')
 
 
 def login(request):
-    email = request.POST["email"] # '로그인' 으로 가져온 값
+    email = request.POST["email"]
     password = request.POST["password"]
 
     result = models.findby_email_and_password(email, password)
@@ -39,10 +36,10 @@ def login(request):
         return HttpResponseRedirect('/user/loginform?result=fail')
 
     # login 처리
+    print(type(result))
     request.session["authuser"] = result
 
     return HttpResponseRedirect('/')
-
 
 
 def logout(request):
@@ -50,27 +47,31 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
-
-
-def updateform(request): # 회원정보 수정
+def updateform(request):
     # Access Control(접근 제어)
     authuser = request.session.get("authuser")
     if authuser is None:
         return HttpResponseRedirect('/')
 
-    authuser = request.session["authuser"]
-    result = models.findbyno(authuser["no"]) # name, email, gender 받아옴
-    return render(request, 'user/updateform.html')
+    no = request.session['authuser']['no']
+
+    # 1. 데이터를 가져오기
+    result = models.findbyno(no)
+    data = {'user': result}
+
+    return render(request, 'user/updateform.html', data)
 
 
 def update(request):
-    name = request.POST["name"] # '수정하기'로 가져온 값
-    gender = request.POST["gender"]
+    no = request.session['authuser']['no']
+    name = request.POST['name']
+    password = request.POST['password']
+    gender = request.POST['gender']
 
     if request.POST['password'] is not '':
         password = request.POST['password']
-
-    models.update(name, password)
-    request.session['authuser']['name'] = name
-
-    return HttpResponseRedirect('/user/updateform?result=success')
+        models.update(no, name, password, gender)
+        request.session['authuser'] = {'no': no, 'name': name}
+        return HttpResponseRedirect('/user/updateform?result=success')
+    else:
+        return HttpResponseRedirect('/user/updateform?result=fail')

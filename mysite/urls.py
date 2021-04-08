@@ -25,6 +25,8 @@ urlpatterns = [
     path('', mainviews.index),  # http://localhost:9999/ 는 main.views.index 실행
     path('guestbook/', guestbookviews.index),  # http://localhost:9999/guestbook 은 guestbook.views.index 실행
     path('guestbook/add', guestbookviews.add),
+    path('guestbook/deleteform', guestbookviews.deleteform),
+    path('guestbook/delete', guestbookviews.delete),
 
     # path('admin/', admin.site.urls),
     path('user/joinform', userviews.joinform),
