@@ -1,38 +1,72 @@
 {% extends '../base.html' %}
 
+{% load mathfilters %}
+
 {% block css_link %}
 <link href="/assets/css/board.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block content %}
-
 			<div id="board">
-				<form class="board-form" method="post" action="">
-					<table class="tbl-ex">
-						<tr>
-							<th colspan="2">글수정</th>
-						</tr>
-						<tr>
-							<td class="label">제목</td>
-							<td><input type="text" name="title" value=""></td>
-						</tr>
-						<tr>
-							<td class="label">내용</td>
-							<td>
-								<textarea id="content" name="content">수정해야 할 글은 고대로
-이렇게 textarea에 뿌려야 합니다.
-개행문자 변경도 하지마세요.
-하하하하하
-즐건 코딩 되세요~~~~</textarea>
-							</td>
-						</tr>
-					</table>
-					<div class="bottom">
-						<a href="">취소</a>
-						<input type="submit" value="수정">
-					</div>
+				<form id="search_form" action="" method="post">
+					<input type="text" id="kwd" name="kwd" value="">
+					<input type="submit" value="찾기">
 				</form>
+				<table class="tbl-ex">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>조회수</th>
+						<th>작성일</th>
+						<th>&nbsp;</th>
+					</tr>
+					{% for board in boardlist %}
+					<tr>
+						<td>{{ boardlist  | length | sub:forloop.counter | add:1 }}</td>
+						<td><a href="" style="text-align:left; padding-left:0px">{{ board.title }}</a></td>
+						<td>{{ board.name }}</td>
+						<td> {{ board.hit }} </td>
+						<td> {{ board.reg_date }} </td>
+						<td><a href="" class="del">삭제</a></td>
+					</tr>
+					{% endfor %}
+
+
+					<tr>
+						<td>2</td>
+						<td><a href="" style="text-align:left; padding-left:30px"><img src="/assets/images/reply.png" /> 두 번째 글입니다.</a></td>
+						<td>안대혁</td>
+						<td>3</td>
+						<td>2015-10-02 12:04:12</td>
+						<td><a href="" class="del">삭제</a></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td><a href="" style="text-align:left; padding-left:60px"><img src="/assets/images/reply.png" /> 첫 번째 글입니다.</a></td>
+						<td>안대혁</td>
+						<td>3</td>
+						<td>2015-09-25 07:24:32</td>
+						<td><a href="" class="del">삭제</a></td>
+					</tr>
+				</table>
+				
+				<!-- pager 추가 시작-->
+				<div class="pager">
+					<ul>
+						<li><a href="">◀</a></li>
+						<li><a href="">1</a></li>
+						<li class="selected">2</li>
+						<li><a href="">3</a></li>
+						<li>4</li>
+						<li>5</li>
+						<li><a href="">▶</a></li>
+					</ul>
+				</div>					
+				<!-- pager 추가 끝-->
+				
+				<div class="bottom">
+					<a href="/board/writeform" id="new-book">글쓰기</a>
+				</div>				
 			</div>
-
-
 {% endblock %}

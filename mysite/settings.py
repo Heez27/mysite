@@ -136,3 +136,4 @@ STATIC_URL = '/assets/'
 # 추가
 # session cookies(csrftoken) stored in memory
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
