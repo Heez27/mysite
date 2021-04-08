@@ -72,3 +72,14 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'statics'),
 )
 STATIC_URL = '/assets/'
+```
+
+### 10. 지금까지 작업 내용 확인
+
+1) 서버 시작하기
+```shell
+(env) # python manage.py runserver 0.0.0.0:9999
+```
+
+
+2) 브라우저로 접근하기: url http://localhost:9999 로 접근
