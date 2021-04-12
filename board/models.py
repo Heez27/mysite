@@ -78,7 +78,30 @@ def write(no, title, content):
         print(f'error: {e}')
 
 
+def update(no, title, content):
+    try:
+        # 연결
+        db = conn()
 
+        # cursor 생성
+        cursor = db.cursor()
+
+        # SQL 실행
+        sql = 'update board set title = %s, contents=%s where no=%s'
+        count = cursor.execute(sql, (title, content, no))
+
+        # commit
+        db.commit()
+
+        # 자원 정리
+        cursor.close()
+        db.close()
+
+        # 결과 반환
+        return count == 1
+
+    except OperationalError as e:
+        print(f'error: {e}')
 
 def conn():
     return connect(
